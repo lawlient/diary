@@ -1,39 +1,23 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "os"
-	"net/http"
-    "yraid/middleware"
+	"flag"
+	"fmt"
 
-
-    "github.com/gin-gonic/gin"
+	"yraid/core"
 )
 
-func Welcome(c *gin.Context) {
-    c.JSON(http.StatusOK, gin.H{
-        "success": true,
-        "msg":     "OK",
-        "data":    "https://jovan.vip.cpolar.cn/docsify/#/webservice/README",
-    })
-}
-
 func main() {
-    BASEPATH := os.Getenv("BASEPATH")
+	port := flag.String("port", "1625", "server port")
+	flag.Parse()
 
-    port := flag.String("port", "1625", "server port")
-    flag.Parse()
+	engine, err := core.NewEngine()
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+		return
+	}
 
-    e := gin.Default()
-    e.Use(middleware.CORS())
-    r := e.Group(BASEPATH)
-    {
-        r.GET("/", Welcome)
-    }
+	fmt.Println("Welcome to yraid")
 
-
-    fmt.Println("Welcome to yraid")
-
-    e.Run(":" + *port)
+	engine.En.Run(":" + *port)
 }

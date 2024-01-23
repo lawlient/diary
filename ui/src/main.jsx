@@ -5,6 +5,14 @@ import "./index.css"
 import App from './App.jsx'
 import Root from './Root.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Signin from './pages/Signin.jsx'
+import Signup from './pages/Signup.jsx'
+import Daily from './pages/Daily.jsx';
+import Monthly from './pages/Monthly.jsx';
+
+const init_user = () => {
+
+}
 
 const router = createBrowserRouter([
     {
@@ -14,11 +22,33 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <Root />,
+                children: [
+                    {
+                        path: "",
+                        element: <Daily />,
+                    },
+                    {
+                        path: "daily",
+                        element: <Daily />,
+                    },
+                    {
+                        path: "monthly",
+                        element: <Monthly />,
+                    },
+                ]
             },
             {
                 path: "*",
                 element: <NotFound />
-            }
+            },
+            {
+                path: "signin",
+                element: <Signin />
+            },
+            {
+                path: "signup",
+                element: <Signup />
+            },
         ]
     }
 ])

@@ -1,4 +1,4 @@
 #!/bin/sh
 # AUTO GENERATED FOR STARTING CONTIANER IN DEVELOPMENT
 
-go run .
+go mod tidy  && go run .

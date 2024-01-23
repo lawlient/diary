@@ -1,33 +1,16 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
+import { Outlet } from "react-router-dom";
+import Navigation from "./components/Navigation";
 
 export default function Root() {
-    const [doc, setDoc] = useState("")
-
-    useEffect(() => {
-        var HOSTNAME = import.meta.env.VITE_BASE_URL
-        var BASEPATH = import.meta.env.BASE_URL
-        axios.defaults.baseURL = HOSTNAME + BASEPATH
-        axios.get("/").then(res => {
-            if (res.data.success) {
-                setDoc(res.data.data)
-            } else {
-                alert(res.data.msg)
-            }
-        })
-
-    }, [])
-
-
     return (
-        <div className='flex flex-col items-center justify-center h-screen'>
-            <div className="w-110 h-300 mx-auto my-auto">
-                <div className='flex flex-col items-center justify-center mb-10'>
-                    <h1 className="text-4xl"> Welcome </h1>
+        <div className='flex items-center justify-center h-screen'>
+            <div className="w-full max-w-6xl mx-auto flex flex-row justify-center items-start sm:px-4">
+                <div className="sm:block sticky top-0 left-0 w-56">
+                    <Navigation />
                 </div>
-                <div>
-                    <p>Read <a className='underline ' href={doc} >Document</a> to learn how to use .</p>
-                </div>
+                <main className="w-full min-h-screen sm:max-w-[calc(100%-14rem)] flex-grow shrink flex flex-col justify-start items-start">
+                    <Outlet />
+                </main>
             </div>
         </div>
     )
