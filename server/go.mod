@@ -5,6 +5,7 @@ go 1.21.4
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/pkg/errors v0.9.1
 	golang.org/x/crypto v0.9.0
 	modernc.org/sqlite v1.28.0
 )

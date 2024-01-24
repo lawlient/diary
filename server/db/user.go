@@ -15,8 +15,8 @@ type User struct {
 	Email    string `json:"email"`
 	Avatar   string `json:"avatar"`
 	Role     string `json:"role"`
-	Cts      uint64 `json:"create_time"`
-	Uts      uint64 `json:"update_time"`
+	Cts      int64  `json:"create_time"`
+	Uts      int64  `json:"update_time"`
 }
 
 func (d *DBDriver) GetUser(ctx context.Context, u *User) ([]*User, error) {

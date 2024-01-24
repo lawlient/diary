@@ -12,11 +12,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const (
-	TokenExpire = 30 * time.Minute
-	Secret      = "yraid is good"
-)
-
 func (api *Api) RegisterAuth(e *gin.RouterGroup) {
 	r := e.Group("/auth")
 	{
@@ -72,8 +67,8 @@ func (api *Api) Signup(c *gin.Context) {
 	}
 
 	// 生成token
-	exp := time.Now().Add(TokenExpire)
-	token, err := util.GenerateAccessToken(uinfo.Username, uinfo.ID, exp, []byte(Secret))
+	exp := time.Now().Add(util.TokenExpire)
+	token, err := util.GenerateAccessToken(uinfo.Username, uinfo.ID, exp, []byte(util.Secret))
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
@@ -132,8 +127,8 @@ func (api *Api) Signin(c *gin.Context) {
 	}
 
 	// token生成
-	exp := time.Now().Add(TokenExpire)
-	token, err := util.GenerateAccessToken(user.Username, user.ID, exp, []byte(Secret))
+	exp := time.Now().Add(util.TokenExpire)
+	token, err := util.GenerateAccessToken(user.Username, user.ID, exp, []byte(util.Secret))
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
