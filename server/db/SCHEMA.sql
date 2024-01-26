@@ -1,4 +1,4 @@
-drop table monthly;
+-- drop table monthly;
 
 -- users
 create table if not exists users (
@@ -17,10 +17,10 @@ create table if not exists users (
 
 
 
--- daily, day format is "2006-01-02"
+-- daily, 
 create table if not exists daily (
     uid INTEGER NOT NULL,
-    day TEXT NOT NULL,
+    day TEXT NOT NULL CHECK (day IS strftime('%Y-%m-%d', day)),
     content TEXT NOT NULL DEFAULT '',
 
     create_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now')),
@@ -30,6 +30,7 @@ create table if not exists daily (
 
 
 -- monthly okr, day format is "2006-01"
+-- sqlite time constraint check not support "YYYY-MM"
 create table if not exists monthly (
     uid INTEGER not NULL,
     day TEXT NOT NULL,

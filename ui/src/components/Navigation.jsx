@@ -1,5 +1,5 @@
 import { Typography } from "@mui/joy"
-import useNav from "../hooks/nav"
+import { useNav } from "../hooks/nav"
 
 export default function Navigation() {
     const gto = useNav()

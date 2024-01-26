@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+}
+
+html,
+body {
+  @apply text-base w-full h-full overflow-hidden dark:bg-slate-800;
+}
+
+#root {
+  @apply w-full h-full overflow-auto;
+}

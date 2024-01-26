@@ -2,7 +2,8 @@ import { useState } from "react"
 import { Input, Button, Typography, Link, Avatar } from '@mui/joy'
 import { signin } from "../api/api.js"
 
-import useNav from "../hooks/nav.js"
+import { useNav } from "../hooks/nav"
+import axios from "axios"
 
 
 export default function Signin() {
@@ -18,6 +19,7 @@ export default function Signin() {
             if (res.data.success) {
                 console.log("token is ", res.data.token)
                 localStorage.setItem("__token__", res.data.token)
+                axios.defaults.headers["Authorization"] = localStorage.getItem("__token__")
                 gto("")
             } else {
                 console.log("error is ", res.data.msg)

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-export default function useNav() {
+export const useNav = () => {
     const nav = useNavigate()
     return (url) => {
         var BASEPATH = import.meta.env.BASE_URL

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Input, Button, Typography, Link, Avatar } from '@mui/joy'
 import { signup } from "../api/api.js"
-import useNav from "../hooks/nav.js"
+import { useNav } from "../hooks/nav"
 
 
 
