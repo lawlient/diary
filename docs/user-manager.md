@@ -25,9 +25,9 @@ CREATE TABLE IF NOasjT EXISTS users (
 
 - POST
 
-|  参数        |    含义    |  备注    |
-| :-          | :-         | :-      |
-| username    | 用户名  |   必填 |
+|  参数       |    含义     |   备注    |
+| :-          |    :-       |   :-      |
+| username    |   用户名    |   必填    |
 
 
 ###  注册 `/api/auth/signin`
