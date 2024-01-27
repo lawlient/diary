@@ -7,12 +7,12 @@ export default function MonthlyTitle({day, setday}) {
     const last = () => setday(dayjs(day).add(-1, "month").format("YYYY-MM"))
     const next = () => setday(dayjs(day).add(1, "month").format("YYYY-MM"))
     return (
-        <div className="flex justify-center items-center">
-            <IconButton onClick={last}> <ArrowLeft /> </IconButton>
+        <div className="w-full flex justify-center items-center gap-2 md:pt-6">
+            <div className="text-gray-400 hover:bg-white hover:cursor-pointer rounded" onClick={last}><ArrowLeft /></div>
             
-            <span className="px-2">{dayjs(day).format("YYYY MMM OKR")}</span>
+            <span className="px-2 text-gray-400">{dayjs(day).format("MMM YYYY OKR")}</span>
 
-            <IconButton onClick={next}> <ArrowRight /> </IconButton>
+            <div className="text-gray-400 hover:bg-white hover:cursor-pointer rounded" onClick={next}> <ArrowRight /> </div>
         </div>
     )
 }

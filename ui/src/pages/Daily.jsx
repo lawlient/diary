@@ -6,6 +6,8 @@ import TaskTitle from "../components/TaskTitle";
 import DiaryTitle from "../components/DiaryTitle";
 import DailySidebar from "../components/DailySidebar";
 import { useResponsiveWidth } from '../hooks/WindowSize';
+import DailySidebarDrawer from '../components/DailySidebarDrawer';
+import MobileHeader from '../components/MobileHeader';
 
 
 export default function Daily() {
@@ -14,8 +16,13 @@ export default function Daily() {
 
 
     return (
-        <section className="flex w-full">
-            <div className="flex flex-col items-center w-[calc(100%-14rem)] gap-3">
+        <section className="w-full flex flex-row justify-start items-start">
+            <div className="w-full flex flex-col md:w-[calc(100%-14rem)]">
+                {!md && (
+                    <MobileHeader >
+                        <DailySidebarDrawer day={day} setday={setDay}/>
+                    </MobileHeader>
+                )}
                 <TaskTitle day={day} setday={setDay} />
                 <DiaryTitle day={day} />
                 <Diary day={day} />

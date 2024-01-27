@@ -1,10 +1,15 @@
 import { Add, Remove } from "@mui/icons-material"
 import { IconButton, Typography } from "@mui/joy"
 import dayjs from "dayjs"
+import { useEffect, useState } from "react"
 
 
 function YearNav({day, setday}) {
-    const year = [2024, 2023, 2022, 2021, 2020]
+    const [year, setYear] = useState([])
+
+    useEffect(() => {
+
+    }, [day])
 
     return (
         <div className="w-full flex flex-col gap-2 items-center">
@@ -23,7 +28,7 @@ function YearNav({day, setday}) {
 export default function YearlySidebar({day, setday}) {
 
     return (
-        <aside className="relative w-full pr-2 h-full overflow-auto hide-scrollbar flex flex-col justify-start items-start py-4">
+        <aside className="relative w-full pr-2 h-full overflow-auto hide-scrollbar flex flex-col justify-start items-start py-8">
             <YearNav day={day} setday={setday} />
         </aside>
     )

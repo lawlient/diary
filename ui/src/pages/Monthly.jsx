@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
-import MonthlyTitle from "../components/MonthlyTitle";
 import { useState } from "react";
+import { useResponsiveWidth } from '../hooks/WindowSize';
+import MonthlyTitle from "../components/MonthlyTitle";
 import MonthlySidebar from "../components/MonthlySidebar";
 import MOKR from "../components/MOKR";
-import { useResponsiveWidth } from '../hooks/WindowSize';
+import MobileHeader from "../components/MobileHeader";
+import MonthlySidebarDrawer from "../components/MonthlySidebarDrawer";
 
 
 export default function Monthly() {
@@ -12,7 +14,12 @@ export default function Monthly() {
 
     return (
         <section className="w-full flex flex-row justify-start items-start">
-            <div className="w-full px-4 md:max-w-[calc(100%-14rem)] sm:px-2 sm:pt-4">
+            <div className="w-full flex flex-col md:max-w-[calc(100%-14rem)] sm:px-2">
+                {!md && (
+                    <MobileHeader >
+                        <MonthlySidebarDrawer day={day} setday={setDay}/>
+                    </MobileHeader>
+                )}
                 <MonthlyTitle day={day} setday={setDay} />
                 <MOKR day={day} />
             </div>

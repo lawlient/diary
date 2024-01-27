@@ -1,8 +1,10 @@
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useResponsiveWidth } from '../hooks/WindowSize';
 import YearlySidebar from "../components/YearlySidebar";
 import YOKR from "../components/YOKR";
-import { useResponsiveWidth } from '../hooks/WindowSize';
+import MobileHeader from "../components/MobileHeader";
+import YearlySidebarDrawer from "../components/YearlySidebarDrawer";
 
 
 export default function Yearly() {
@@ -11,7 +13,12 @@ export default function Yearly() {
 
     return (
         <section className="w-full flex flex-row justify-start items-start">
-            <div className="w-full px-4 md:max-w-[calc(100%-14rem)] sm:px-2 sm:pt-4">
+            <div className="w-full md:max-w-[calc(100%-14rem)] sm:px-2">
+                {!md && (
+                    <MobileHeader >
+                        <YearlySidebarDrawer day={day} setday={setDay}/>
+                    </MobileHeader>
+                )}
                 <YOKR day={day} />
             </div>
             {md && (
