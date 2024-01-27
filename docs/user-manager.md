@@ -19,7 +19,7 @@ CREATE TABLE IF NOasjT EXISTS users (
 );
 ```
 
-## API
+## API参数说明
 
 ###  用户查询 `/api/user/`
 
@@ -30,8 +30,19 @@ CREATE TABLE IF NOasjT EXISTS users (
 | username    | 用户名  |   必填 |
 
 
-###  添加用户 `/api/user/add`
+###  注册 `/api/auth/signin`
+
+
+- POST
+
+|  参数       |     含义    |       备注    |
+| :-          |     :-      |       :-      |
+| username    |  登录名     |   必填        |
+| password    |  密码       |   必填        |
+
+
 
 ###  删除用户 `/api/user/del`
 ###  信息更新 `/api/user/mod`
+
 
