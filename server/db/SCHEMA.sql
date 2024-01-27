@@ -40,3 +40,15 @@ create table if not exists monthly (
     update_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now')),
     UNIQUE(uid, day)
 );
+
+-- yearly okr, day format is "2006"
+-- sqlite time constraint check not support "YYYY"
+create table if not exists yearly (
+    uid INTEGER not NULL,
+    day TEXT NOT NULL,
+    content TEXT NOT NULL DEFAULT '',
+
+    create_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now')),
+    update_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now')),
+    UNIQUE(uid, day)
+);

@@ -52,3 +52,13 @@ export function getmonthly(day) {
 export function savemonthly(info) {
     return axios.post("/api/monthly/update", info)
 }
+
+// ------------------------ yearly -----------------------------
+
+export function getyearly(day) {
+    return axios.post("/api/yearly/", {day: day})
+}
+
+export function saveyearly(info) {
+    return axios.post("/api/yearly/update", info)
+}

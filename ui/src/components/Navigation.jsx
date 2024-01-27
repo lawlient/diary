@@ -13,6 +13,10 @@ export default function Navigation() {
             to: "monthly",
             title: "monthly",
         },
+        {
+            to: "yearly",
+            title: "yearly",
+        },
     ]
 
     return (

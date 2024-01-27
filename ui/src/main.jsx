@@ -9,6 +9,7 @@ import Signin from './pages/Signin.jsx'
 import Signup from './pages/Signup.jsx'
 import Daily from './pages/Daily.jsx';
 import Monthly from './pages/Monthly.jsx';
+import Yearly from './pages/Yearly.jsx';
 
 const init_user = () => {
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
                     {
                         path: "monthly",
                         element: <Monthly />,
+                    },
+                    {
+                        path: "yearly",
+                        element: <Yearly />,
                     },
                 ]
             },
