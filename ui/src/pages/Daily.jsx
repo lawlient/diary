@@ -1,15 +1,16 @@
-import { Typography } from "@mui/joy";
-import { useEffect, useState } from "react";
 import dayjs from 'dayjs'
+import { useState } from 'react';
 
 import Diary from "../components/Diary";
 import TaskTitle from "../components/TaskTitle";
 import DiaryTitle from "../components/DiaryTitle";
 import DailySidebar from "../components/DailySidebar";
+import { useResponsiveWidth } from '../hooks/WindowSize';
 
 
 export default function Daily() {
     const [day, setDay] = useState(dayjs().format("YYYY-MM-DD"))
+    const { md } = useResponsiveWidth()
 
 
     return (
@@ -19,9 +20,11 @@ export default function Daily() {
                 <DiaryTitle day={day} />
                 <Diary day={day} />
             </div>
-            <div className="flex flex-col items-center w-56">
-                <DailySidebar day={day} setday={setDay}/>
-            </div>
+            { md && (
+                <div className="flex flex-col items-center w-56">
+                    <DailySidebar day={day} setday={setDay}/>
+                </div>
+            )}
         </section>
     )
 }

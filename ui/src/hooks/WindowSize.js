@@ -1,6 +1,6 @@
 import useWindowSize from "react-use/lib/useWindowSize";
 
-export default useResponsiveWidth = () => {
+export const useResponsiveWidth = () => {
     const { width } = useWindowSize();
     return {
         sm: width >= 640,

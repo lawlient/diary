@@ -25,30 +25,33 @@ export default function Editor(props) {
         open: false,
         msg: "",
         color: "primary",
+        showSec: 3000,
     })
     const resetNotif = () => {
         setNotif({
             open: false,
             msg: "",
             color: "primary",
+            showSec: 3000,
         })
     }
 
     const onSubmit = () => {
-        let result = save()
-        if (result.code != 0) {
-            setNotif({
-                open: true,
-                msg:result.msg, 
-                color: 'danger',
-            })
-        } else {
-            setNotif({
-                msg:"Save successfully!",
-                open:true,
-                color: 'success',
-            })
-        }
+        save().then(res => {
+            if (!res.data.success) {
+                setNotif({
+                    open:  true,
+                    msg:   res.data.msg, 
+                    color: 'danger',
+                })
+            } else {
+                setNotif({
+                    msg:   "Save successfully!",
+                    open:  true,
+                    color: 'success',
+                })
+            }
+        })
     }
 
     const onClose = () => {
@@ -103,7 +106,7 @@ export default function Editor(props) {
             </ModalDialog>
         </Modal> 
         <Snackbar anchorOrigin={{vertical: 'top', horizontal:'center'}} open={notif.open} onClose={() => resetNotif()}
-            color={notif.color} autoHideDuration={3000}>{notif.msg}</Snackbar>
+            color={notif.color} autoHideDuration={5000}>{notif.msg}</Snackbar>
         </>
     )
 }

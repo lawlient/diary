@@ -36,30 +36,9 @@ export default function Diary({day}) {
         })
     }
 
-    const quit = () => {
-        newest()
-    }
-
-    const submit = () => {
-        var result = {
-            code: 0,
-            msg: "OK",
-        }
-        savediary(diary).then(res => {
-            if (res.data.success) {
-                console.log("save diary success")
-            } else {
-                console.log(res.data.msg)
-                result.code = 1
-                result.msg = res.data.msg
-            }
-        })
-        return result
-    }
-
-    useEffect(() => {
-        newest()
-    }, [day])
+    const quit = () => { newest() }
+    const submit = () => { savediary(diary) }
+    useEffect(() => { newest() }, [day])
 
 
     return (
