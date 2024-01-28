@@ -27,7 +27,7 @@ func (api *Api) Register(e *gin.Engine, db *db.DBDriver) {
 	api.RegisterDaily(r)
 	api.RegisterMonthly(r)
 	api.RegisterYearly(r)
-
+	api.RegisterTasks(r)
 }
 
 func Welcome(c *gin.Context) {

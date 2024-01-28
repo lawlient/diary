@@ -15,6 +15,21 @@ create table if not exists users (
 );
 
 
+-- tasks
+create table if not exists tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uid INTEGER NOT NULL,
+    day TEXT NOT NULL CHECK (day IS date(day)),
+    content TEXT NOT NULL,
+    est INTEGER NOT NULL DEFAULT 0,
+    act INTEGER NOT NULL DEFAULT 0,
+    comments TEXT NOT NULL DEFAULT '',
+    status TEXT NOT NULL CHECK (status IN ('TODO', 'DONE', 'DISCARD')) DEFAULT 'TODO',
+
+    create_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now')),
+    update_time BIGINT NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
 
 
 -- daily, 
