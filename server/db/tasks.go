@@ -81,7 +81,8 @@ func (db *DBDriver) AddTask(ctx context.Context, t *Task) (*Task, error) {
 	args := []any{t.Uid, t.Day, t.Content, t.Est, t.Act, t.Comments, t.Status}
 
 	sql := `insert into tasks (` + strings.Join(fields, ",") + `) values (
-		` + strings.Join(placeholder, ",")
+		` + strings.Join(placeholder, ",") + `)
+		returning id, uid, day, content, est, act, comments, status, create_time, update_time`
 
 	if err := db.db.QueryRowContext(ctx, sql, args...).Scan(
 		&t.ID,

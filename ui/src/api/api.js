@@ -62,3 +62,14 @@ export function getyearly(day) {
 export function saveyearly(info) {
     return axios.post("/api/yearly/update", info)
 }
+
+
+// ------------------------ tasks -----------------------------
+
+export function gettasklist(day) {
+    return axios.post("/api/tasks/", {day: day})
+}
+
+export function addtask(t) {
+    return axios.post("/api/tasks/add", t)
+}

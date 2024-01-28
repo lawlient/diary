@@ -1,4 +1,5 @@
-import { Modal, ModalDialog, Snackbar } from "@mui/joy"
+import { Fullscreen, FullscreenExit } from "@mui/icons-material"
+import { DialogTitle, IconButton, Modal, ModalClose, ModalDialog, Snackbar } from "@mui/joy"
 import React, { useEffect, useState } from "react"
 
 /* 
@@ -25,14 +26,14 @@ export default function Editor(props) {
         open: false,
         msg: "",
         color: "primary",
-        showSec: 3000,
+        duration: 3000,
     })
     const resetNotif = () => {
         setNotif({
             open: false,
             msg: "",
             color: "primary",
-            showSec: 3000,
+            duration: 3000,
         })
     }
 
@@ -70,6 +71,15 @@ export default function Editor(props) {
         }
     }
 
+    const changeLayout = () => {
+        if (layout === undefined) return
+        if (layout === 'center') {
+            setLayout('full')
+            return
+        }
+        setLayout('center')
+    }
+
     useEffect(() => {
         if (layout === undefined) {
             document.removeEventListener("keydown", onKeyDown)
@@ -85,17 +95,17 @@ export default function Editor(props) {
         <>
         <Modal open={!!layout} onClose={onClose}>
             <ModalDialog className="flex flex-col items-center px-2 min-w-80 w-1/2">
-                { layout === 'center' && <div className="flex justify-between items-center w-full mb-1 h-4">
-                    <div><span className="font-medium text-xs">{title}</span></div>
-                    <div><span className="font-medium text-xs" onClick={onClose} >{'x'}</span></div>
-                </div>}
+                { layout === 'center' &&  <DialogTitle >{title}</DialogTitle>}
+                { layout === 'center' &&  <ModalClose />}
 
                 <div className="w-full border rounded-lg border-gray-300 px-2 gap">
                     <textarea className="w-full h-full min-h-[300px] my-4 text-base resize-none overflow-x-hidden overflow-y-auto bg-transparent outline-none"
                         value={data} onChange={(e)=>setData(e.target.value)} />
                     <div className="flex justify-between items-center w-full border-t h-8 py-4">
                         <div className="flex">
-                            <span>left</span>
+                            <IconButton onClick={changeLayout}>
+                                {layout === 'center' ? <Fullscreen /> : <FullscreenExit />}
+                            </IconButton>
                         </div>
                         <div className="flex justify-end">
                             <button className="px-2 border rounded-xl border-green-300 bg-green-300 hover:bg-green-400" onClick={onSubmit} >save</button>
@@ -106,7 +116,7 @@ export default function Editor(props) {
             </ModalDialog>
         </Modal> 
         <Snackbar anchorOrigin={{vertical: 'top', horizontal:'center'}} open={notif.open} onClose={() => resetNotif()}
-            color={notif.color} autoHideDuration={5000}>{notif.msg}</Snackbar>
+            color={notif.color} autoHideDuration={notif.duration}>{notif.msg}</Snackbar>
         </>
     )
 }

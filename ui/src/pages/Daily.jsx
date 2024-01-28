@@ -8,6 +8,7 @@ import DailySidebar from "../components/DailySidebar";
 import { useResponsiveWidth } from '../hooks/WindowSize';
 import DailySidebarDrawer from '../components/DailySidebarDrawer';
 import MobileHeader from '../components/MobileHeader';
+import TaskList from '../components/TaskList';
 
 
 export default function Daily() {
@@ -24,6 +25,7 @@ export default function Daily() {
                     </MobileHeader>
                 )}
                 <TaskTitle day={day} setday={setDay} />
+                <TaskList day={day} setday={setDay} />
                 <DiaryTitle day={day} />
                 <Diary day={day} />
             </div>
