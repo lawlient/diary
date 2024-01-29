@@ -109,7 +109,8 @@ func (db *DBDriver) ModTask(ctx context.Context, t *Task) (*Task, error) {
 	args := []any{t.Content, t.Est, t.Act, t.Comments, t.Status, time.Now().Unix()}
 	args = append(args, t.ID)
 
-	sql := `update tasks set ` + strings.Join(fields, ",") + ` where id = ?`
+	sql := `update tasks set ` + strings.Join(fields, ",") + ` where id = ? 
+	returning id, uid, day, content, est, act, comments, status, create_time, update_time`
 
 	if err := db.db.QueryRowContext(ctx, sql, args...).Scan(
 		&t.ID,
@@ -149,7 +150,7 @@ func (db *DBDriver) DelTask(ctx context.Context, id int, uid int32) error {
 }
 
 func (db *DBDriver) ListTaskCount(ctx context.Context, uid int32, begin, end string) ([]*TaskCount, error) {
-	sql := `select count(*) as c from tasks where uid = ? and (day between ? and ?) group by day returning day, c`
+	sql := `select day, count(*) as c from tasks where uid = ? and (day between ? and ?) group by day`
 
 	rows, err := db.db.QueryContext(ctx, sql, uid, begin, end)
 	if err != nil {

@@ -73,3 +73,11 @@ export function gettasklist(day) {
 export function addtask(t) {
     return axios.post("/api/tasks/add", t)
 }
+
+export function edittask(t) {
+    return axios.post("/api/tasks/update", t)
+}
+
+export function counttask(b, e) {
+    return axios.get("/api/tasks/countbyday?begin=" + b + "&end=" + e)
+}

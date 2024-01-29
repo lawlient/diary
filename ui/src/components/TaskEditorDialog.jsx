@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button, ButtonGroup, DialogTitle, Input, Modal, ModalClose, ModalDialog, Snackbar, Textarea } from "@mui/joy"
 import { HourglassBottom, HourglassTop } from "@mui/icons-material"
+import { useTaskEdit } from "./TaskEditContext"
 
 function TaskContent({task, setTask}) {
     return (
@@ -29,7 +30,7 @@ function TaskStatus({task, setTask}) {
         {
             status.map(s => (
                 <Button key={s} onClick={() => setTask({...task,status: s})}
-                color={s === task.status && 'success'}
+                color={s === task.status ? 'success' : ''}
                 >
                     {s}
                 </Button>
@@ -48,6 +49,7 @@ function TaskComments({task, setTask}) {
 
 
 export default function TaskEditorDialog({task, setTask, layout, setLayout, save}) {
+    const [edit, setEdit] = useTaskEdit()
     const [notif, setNotif] = useState({
         open: false,
         msg: "",
@@ -71,7 +73,6 @@ export default function TaskEditorDialog({task, setTask, layout, setLayout, save
         e.preventDefault()
 
         save().then(res => {
-            console.log(res.data)
             if (res.data.success) {
                 setNotif({
                     msg:   "Save successfully!",
@@ -79,6 +80,7 @@ export default function TaskEditorDialog({task, setTask, layout, setLayout, save
                     color: 'success',
                     duration: 3000,
                 })
+                setEdit(edit + 1)
                 setLayout(false)
             } else {
                 setNotif({
@@ -89,6 +91,7 @@ export default function TaskEditorDialog({task, setTask, layout, setLayout, save
                 })
             }
         })
+        console.log(typeof(setday))
     }
 
     return (

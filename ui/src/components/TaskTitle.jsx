@@ -1,14 +1,15 @@
-import { IconButton, Typography } from "@mui/joy";
 import dayjs from "dayjs";
-
 import { ArrowLeft, ArrowRight } from '@mui/icons-material'
+import { useDay } from "./DayContext";
 
 
-export default function TaskTitle({day, setday}) {
-    const last = () => setday(dayjs(day).add(-1, "day").format("YYYY-MM-DD"))
-    const next = () => setday(dayjs(day).add(1, "day").format("YYYY-MM-DD"))
+export default function TaskTitle() {
+    const [day, setday] = useDay()
+
+    const last = () => setday(dayjs(day).add(-1, "day"))
+    const next = () => setday(dayjs(day).add(1, "day"))
     return (
-        <div className="w-full flex justify-center items-center gap-2 md:pt-6">
+        <div className="w-full flex justify-center items-center gap-2 md:py-3">
             <ArrowLeft onClick={last} className="text-gray-400 rounded-lg hover:bg-white hover:cursor-pointer"/>
 
             <div className="px-2">

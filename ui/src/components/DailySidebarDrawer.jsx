@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Search } from "@mui/icons-material";
 import { Drawer, IconButton } from "@mui/joy";
 import DailySidebar from "./DailySidebar";
+import { useDay } from "./DayContext";
 
-export default function DailySidebarDrawer({day, setday}) {
+export default function DailySidebarDrawer() {
+    const [day] = useDay()
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -16,7 +18,7 @@ export default function DailySidebarDrawer({day, setday}) {
                 <Search />
             </IconButton>
             <Drawer anchor="right" size="sm" open={open} onClose={() => setOpen(false)}>
-                <DailySidebar  day={day} setday={setday} />
+                <DailySidebar />
             </Drawer>
         </div> 
 

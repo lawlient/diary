@@ -1,13 +1,15 @@
-import { Button, Card, Textarea } from "@mui/joy";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { getdiary, savediary } from "../api/api";
 import MarkdownCard from "./MarkdownCard";
 import Editor from "./Editor";
+import { useDay } from "./DayContext";
 
 
 
-export default function Diary({day}) {
+export default function Diary() {
+    const [day] = useDay()
+
     const [diary, setDiary] = useState({
         "day": dayjs(day).format("YYYY-MM-DD"),
         "content": "",

@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import TaskEditorDialog from "./TaskEditorDialog"
 import { addtask } from "../api/api"
 
@@ -25,10 +25,16 @@ export default function NewTaskButton({day}) {
 
     const save = () => { return addtask(task) }
 
+    useEffect(() => {
+        if (layout === false) {
+            resetTask()
+        }
+    }, [day, layout])
+
 
     return (
         <div className="w-full">
-            <button className="w-full flex justify-center items-center bg-blue-400 rounded-lg hover:bg-blue-500 h-5 "
+            <button className="w-full flex justify-center items-center bg-blue-400 rounded hover:bg-blue-500 h-5 "
                 onClick={() => setLayout(true)} > + </button>
             <TaskEditorDialog task={task} setTask={setTask} layout={layout} setLayout={setLayout} save={save} />
         </div>

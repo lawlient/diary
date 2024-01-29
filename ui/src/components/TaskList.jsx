@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react"
-import { gettasklist } from "../api/api"
+import { edittask, gettasklist } from "../api/api"
 import { useResponsiveWidth } from "../hooks/WindowSize"
 import NewTaskButton from "./NewTaskButton"
-import { HourglassBottom, HourglassTop, Info } from "@mui/icons-material"
+import { HourglassBottom, HourglassTop } from "@mui/icons-material"
+import { useDay } from "./DayContext"
+import { useTaskEdit } from "./TaskEditContext"
+import TaskEditorDialog from "./TaskEditorDialog"
+import dayjs from "dayjs"
 
 function TaskContent({t}) {
+    const done = (t.status === "DONE")
+    const disc = (t.status === "DISCARD")
     return (
-        <>
-        <span className="text">{t.content}</span>
-        <Info fontSize="sx"/>
-        </>
+        <div className={`w-1/3 flex items-center text test-black gap-2 ${disc ? "line-through": ""}`}>
+            {t.content}
+        </div>
     )
 }
 
@@ -26,14 +31,14 @@ function TaskTime({t}) {
     }
 
     return (
-        <div className="flex items-center gap-2" >
-            <div className="text-gray-500 text-sm">
+        <div className="flex gap-2">
+            <div className="flex justify-center items-center px-2 rounded-lg bg-cyan-200 text-gray-500 text-xs gap-1">
                 <HourglassTop fontSize="sx"/>
-                <span className="">{tformat(t.est)}</span>
+                {tformat(t.est)}
             </div>
-            <div className="text-gray-500 text-sm">
+            <div className="flex justify-center items-center px-2 rounded-lg bg-cyan-200 text-gray-500 text-xs gap-1">
                 <HourglassBottom fontSize="sx"/>
-                <span className="">{tformat(t.act)}</span>
+                {tformat(t.act)}
             </div>
         </div>
     )
@@ -41,8 +46,9 @@ function TaskTime({t}) {
 
 
 function TaskOneline({t}) {
+    const disc = (t.status === "DISCARD")
     return (
-        <div className="flex justify-start items-start gap-3">
+        <div className={`w-full flex justify-start items-center gap-8 ${disc ? "bg-slate-400" : ""}`}>
             <TaskContent t={t} />
             <TaskTime t={t} />
         </div>
@@ -57,17 +63,26 @@ function TaskTwoline({t}) {
     )
 }
 
-function Task({t}) {
+function Task({t, setTask, setLayout}) {
     const { sm } = useResponsiveWidth()
+
     return (
-        <div className="w-full rounded bg-gray-200">
+        <div className="w-full flex justify-start items-center rounded bg-slate-50 hover:bg-white px-3 py-1"
+        onDoubleClick={() => {
+            setTask(t)
+            setLayout(true)
+        }}
+        >
             {sm ?  <TaskOneline t={t} /> : <TaskTwoline t={t} />}
         </div>
     )
 }
 
 
-export default function TaskList({day}) {
+export default function TaskList() {
+    const [day] = useDay()
+    const [edit] = useTaskEdit()
+
     const [tasks, setTasks] = useState([])
 
     useEffect(() => {
@@ -76,16 +91,44 @@ export default function TaskList({day}) {
                 setTasks(res.data.data)
             }
         })
-    }, [day])
+    }, [day, edit])
+
+    const [task, setTask] = useState({
+        day: dayjs(day).format("YYYY-MM-DD"),
+        content: "",
+        est: 0,
+        act: 0,
+        status: "TODO",
+    })
+    const resetTask = () => {
+        setTask({
+            day: dayjs(day).format("YYYY-MM-DD"),
+            content: "",
+            est: 0,
+            act: 0,
+            status: "TODO",
+        })
+    }
+    const [layout, setLayout] = useState(false)
+
+    const save = () => { return edittask(task) }
+
+    useEffect(() => {
+        if (layout === false) {
+            resetTask()
+        }
+    }, [day, layout])
 
     return (
-        <div className="w-full flex flex-col justify-start items-center gap-2" >
+        <>
+        <div className="w-full flex flex-col justify-start items-center gap-0.5 " >
             {tasks.map(t => (
-                <Task key={t.id} t={t} />
+                <Task key={t.id} t={t} setTask={setTask} setLayout={setLayout} />
             ))}
 
             <NewTaskButton day={day} />
         </div>
-
+        <TaskEditorDialog task={task} setTask={setTask} layout={layout} setLayout={setLayout} save={save} />
+        </>
     )
 }
