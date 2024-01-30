@@ -12,7 +12,7 @@ axios.interceptors.response.use((response) => {
 }, (error) => { // Anything except 2XX goes to here
     const status = error.response?.status || 500;
     if (status === 401) {
-        window.location = window.location.protocol + "//" + window.location.host + "/signin"
+        window.location = window.location.protocol + "//" + window.location.host + BASEPATH + "signin"
     } else {
         return Promise.reject(error); // Delegate error to calling side
     }

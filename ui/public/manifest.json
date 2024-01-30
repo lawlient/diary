@@ -1,0 +1,16 @@
+{
+  "short_name": "yraid",
+  "name": "yraid",
+  "description": "yraid",
+  "icons": [
+    {
+      "src": "/yraid/logo.png",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/yraid/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#f4f4f5",
+  "background_color": "#f4f4f5"
+}

@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-	"os"
 	"yraid/db"
 	"yraid/middleware"
 
@@ -17,9 +16,8 @@ type Api struct {
 func (api *Api) Register(e *gin.Engine, db *db.DBDriver) {
 	api.db = db
 	api.e = e
-	BASEPATH := os.Getenv("BASEPATH")
 	api.e.Use(middleware.CORS())
-	r := api.e.Group(BASEPATH + "/api")
+	r := api.e.Group("/api")
 	{
 		r.GET("/", Welcome)
 	}

@@ -33,5 +33,10 @@ func NewEngine() (*Engine, error) {
 	api.Register(e.En, driver)
 	e.Api = &api
 
+	if gin.Mode() == gin.ReleaseMode {
+		fmt.Println("Release Mode")
+		e.En.Use(embedFrontend())
+	}
+
 	return &e, nil
 }

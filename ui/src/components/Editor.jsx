@@ -44,12 +44,14 @@ export default function Editor(props) {
                     open:  true,
                     msg:   res.data.msg, 
                     color: 'danger',
+                    duration: 5000,
                 })
             } else {
                 setNotif({
                     msg:   "Save successfully!",
                     open:  true,
                     color: 'success',
+                    duration: 3000,
                 })
             }
         })

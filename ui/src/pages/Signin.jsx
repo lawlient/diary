@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Input, Button, Typography, Link, Avatar } from '@mui/joy'
+import { Input, Button, Typography, Link, Avatar, Snackbar } from '@mui/joy'
 import { signin } from "../api/api.js"
 
 import { useNav } from "../hooks/nav"
@@ -11,6 +11,21 @@ export default function Signin() {
         "username": "",
         "password": "",
     })
+    const [feedback, setFeedback] = useState({
+        open: false,
+        msg: "",
+        duration: 3000,
+        color: 'success'
+    })
+    const [logo, setLogo] = useState(import.meta.env.BASE_URL + "logo.png")
+    const resetFeedback = () => {
+        setFeedback({
+            open: false,
+            msg: "",
+            duration: 3000,
+            color: 'success'
+        })
+    }
     const gto = useNav()
 
     const login = (e) => {
@@ -22,20 +37,31 @@ export default function Signin() {
                 axios.defaults.headers["Authorization"] = localStorage.getItem("__token__")
                 gto("")
             } else {
-                console.log("error is ", res.data.msg)
+                setFeedback({
+                    open: true,
+                    msg: res.data.msg,
+                    duration: 5000,
+                    color: 'danger',
+                })
             }
         })
     }
 
     return (
         <div className="w-full h-screen flex justify-center items-center">
-            <form className="px-8 py-16 flex flex-col w-300 h-auto justify-center gap-3 border-solid border border-gray-400 rounded-lg shadow-2xl shadow-gray-400" onSubmit={e => login(e)}>
-                <Avatar sx={{}} src={""} />
-                <Input type="text" autoFocus required value={info.username} onChange={(e) => setInfo({...info, username: e.target.value}) } placeholder="username" />
-                <Input type="password" required value={info.password} onChange={(e) => setInfo({...info, password: e.target.value}) } placeholder="password" />
-                <Button type="submit" >Login</Button>
-                <Typography endDecorator={<Link href="signup">Signup</Link>} >Don't have an account ?</Typography>
+            <form className="px-8 py-8 w-300 h-auto flex flex-col justify-center items-center gap-3 border-solid border border-gray-400 rounded-lg shadow-2xl shadow-gray-400" onSubmit={e => login(e)}>
+                <Avatar size="xl" variant="outlined" src={logo} />
+                <Input type="text" autoFocus fullWidth required value={info.username} onChange={(e) => setInfo({...info, username: e.target.value}) } placeholder="username" />
+                <Input type="password" fullWidth required value={info.password} onChange={(e) => setInfo({...info, password: e.target.value}) } placeholder="password" />
+                <Button type="submit" fullWidth >Login</Button>
+                <Typography endDecorator={<Link href="signup">Signup</Link>} >
+                    Don't have an account ?
+                </Typography>
             </form>
+            <Snackbar anchorOrigin={{vertical: 'top', horizontal:'center'}} open={feedback.open} 
+                onClose={resetFeedback} autoHideDuration={feedback.duration} color={feedback.color} >
+                    {feedback.msg}
+            </Snackbar>
         </div>
     )
 }
