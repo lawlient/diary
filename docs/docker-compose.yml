@@ -1,0 +1,19 @@
+# docsify 文档镜像
+
+version: "3"
+services:
+  doc:
+    container_name: "yraid_doc"
+    build: .
+    volumes: 
+      - "./:/app/docs"
+    working_dir: "/app/docs"
+    entrypoint: "docsify serve ."
+    tty: true
+
+    networks:
+      - yaridnet
+
+networks:
+  yaridnet:
+    name: yraid_default
