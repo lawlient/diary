@@ -39,7 +39,7 @@ export default function Diary() {
     }
 
     const quit = () => { newest() }
-    const submit = () => { savediary(diary) }
+    const submit = () => { return savediary(diary) }
     useEffect(() => { newest() }, [day])
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css"
+import "./less/code-highlight.less"
 import App from './App.jsx'
 import Root from './Root.jsx'
 import NotFound from './pages/NotFound.jsx'

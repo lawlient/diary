@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import Marked from "./Marked";
+import { marked } from "../ext/marked";
+import '../less/markdown-card.less'
 
 export default function MarkdownCard({data}) {
     return (
@@ -12,7 +13,11 @@ export default function MarkdownCard({data}) {
                     <span className="flex justify-center text-gray-400 text-md">...</span>
                 </div>
             </div>
-            <Marked text={data.content} />
+            <div className={`markdown-card-wrapper`} >
+                <div className="markdown-card-text">
+                    {marked(data.content)}
+                </div>
+            </div>
         </div>
     )
 }

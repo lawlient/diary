@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { edittask, gettasklist } from "../api/api"
 import { useResponsiveWidth } from "../hooks/WindowSize"
 import NewTaskButton from "./NewTaskButton"
-import { HourglassBottom, HourglassTop } from "@mui/icons-material"
+import { HourglassBottom, HourglassTop, More, MoreHoriz } from "@mui/icons-material"
 import { useDay } from "./DayContext"
 import { useTaskEdit } from "./TaskEditContext"
 import TaskEditorDialog from "./TaskEditorDialog"
@@ -12,7 +12,7 @@ function TaskContent({t}) {
     const done = (t.status === "DONE")
     const disc = (t.status === "DISCARD")
     return (
-        <div className={`w-1/3 flex items-center text test-black gap-2 ${disc ? "line-through": ""}`}>
+        <div className={`w-1/3 flex items-center text test-black gap-2 ${disc ? "line-through": ""} sm:w-full`}>
             {t.content}
         </div>
     )
@@ -32,11 +32,11 @@ function TaskTime({t}) {
 
     return (
         <div className="flex gap-2">
-            <div className="flex justify-center items-center px-2 rounded-lg bg-cyan-200 text-gray-500 text-xs gap-1">
+            <div className="flex justify-center items-center px-2 rounded bg-cyan-200 text-gray-500 text-xs gap-1">
                 <HourglassTop fontSize="sx"/>
                 {tformat(t.est)}
             </div>
-            <div className="flex justify-center items-center px-2 rounded-lg bg-cyan-200 text-gray-500 text-xs gap-1">
+            <div className="flex justify-center items-center px-2 rounded bg-cyan-200 text-gray-500 text-xs gap-1">
                 <HourglassBottom fontSize="sx"/>
                 {tformat(t.act)}
             </div>
@@ -48,9 +48,14 @@ function TaskTime({t}) {
 function TaskOneline({t}) {
     const disc = (t.status === "DISCARD")
     return (
-        <div className={`w-full flex justify-start items-center gap-8 ${disc ? "bg-slate-400" : ""}`}>
-            <TaskContent t={t} />
-            <TaskTime t={t} />
+        <div className={`w-full flex justify-between items-center gap-8 ${disc ? "bg-slate-400" : ""}`}>
+            <div className="" >
+                <TaskContent t={t} />
+                <TaskTime t={t} />
+            </div>
+            <div className="">
+                <MoreHoriz />
+            </div>
         </div>
     )
 }
