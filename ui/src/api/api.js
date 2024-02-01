@@ -29,6 +29,13 @@ export function signup(info) {
     return axios.post("/api/auth/signup", info)
 }
 
+// ----------------------- auth  ------------------------------
+export function getuser(username) {
+    return axios.post("/api/user/", {
+        username: username,
+    })
+}
+
 
 
 

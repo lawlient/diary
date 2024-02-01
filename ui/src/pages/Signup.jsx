@@ -32,6 +32,7 @@ export default function Signin() {
             if (res.data.success) {
                 console.log("token is ", res.data.token)
                 localStorage.setItem("__token__", res.data.token)
+                localStorage.setItem("__username__", info.username)
                 gto("")
             } else {
                 setFeedback({

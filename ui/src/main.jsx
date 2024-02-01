@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 import "./index.css"
 import "./less/code-highlight.less"
 import App from './App.jsx'
@@ -11,9 +11,19 @@ import Signup from './pages/Signup.jsx'
 import Daily from './pages/Daily.jsx';
 import Monthly from './pages/Monthly.jsx';
 import Yearly from './pages/Yearly.jsx';
+import { getuser } from './api/api.js';
 
-const init_user = () => {
-
+// loader, must return something
+const init_user = async () => {
+    var username = localStorage.getItem("__username__")
+    if (username == null || username === "") {
+        redirect(import.meta.env.BASE_URL + "signin")
+        return null
+    }
+    await getuser(username).then(res => {
+        console.log(res.data)
+    })
+    return null
 }
 
 const router = createBrowserRouter([
@@ -24,6 +34,7 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <Root />,
+                loader: () => init_user(),
                 children: [
                     {
                         path: "",

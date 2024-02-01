@@ -9,6 +9,7 @@ services:
       - "./:/app/docs"
     working_dir: "/app/docs"
     entrypoint: "docsify serve ."
+    restart: unless-stopped
     tty: true
 
     networks:

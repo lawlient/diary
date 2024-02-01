@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 	"yraid/db"
+	"yraid/middleware"
 
 	"yraid/util"
 
@@ -17,6 +18,12 @@ func (api *Api) RegisterAuth(e *gin.RouterGroup) {
 	{
 		r.POST("/signin", api.Signin)
 		r.POST("/signup", api.Signup)
+	}
+
+	u := e.Group("/user")
+	u.Use(middleware.JWT())
+	{
+		u.POST("/")
 	}
 }
 
@@ -141,5 +148,41 @@ func (api *Api) Signin(c *gin.Context) {
 		"success": true,
 		"msg":     "OK",
 		"token":   token,
+	})
+}
+
+// 用户信息(需要鉴权)
+func (api *Api) GetUser(c *gin.Context) {
+	var u db.User
+	if err := c.ShouldBindJSON(&u); err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"msg":     "Bad Request",
+		})
+		return
+	}
+
+	ctx := context.Background()
+	// 查询用户信息
+	list, err := api.db.GetUser(ctx, &u)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"msg":     err.Error(),
+		})
+		return
+	}
+	if len(list) != 1 {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"msg":     "Cannot find user",
+		})
+		return
+	}
+	user := list[0]
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"msg":     "OK",
+		"data":    user,
 	})
 }
