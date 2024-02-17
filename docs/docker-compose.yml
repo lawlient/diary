@@ -13,8 +13,8 @@ services:
     tty: true
 
     networks:
-      - yaridnet
+      - pronet
 
 networks:
-  yaridnet:
-    name: yraid_default
+  pronet:
+    name: pro_net

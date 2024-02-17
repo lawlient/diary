@@ -5,7 +5,7 @@ import DailySidebar from "./DailySidebar";
 import { useDay } from "./DayContext";
 
 export default function DailySidebarDrawer() {
-    const [day] = useDay()
+    const {day} = useDay()
     const [open, setOpen] = useState(false)
 
     useEffect(() => {

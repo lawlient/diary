@@ -74,12 +74,6 @@ export default function TaskEditorDialog({task, setTask, layout, setLayout, save
 
         save().then(res => {
             if (res.data.success) {
-                setNotif({
-                    msg:   "Save successfully!",
-                    open:  true,
-                    color: 'success',
-                    duration: 3000,
-                })
                 setEdit(edit + 1)
                 setLayout(false)
             } else {

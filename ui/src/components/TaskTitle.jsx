@@ -4,7 +4,7 @@ import { useDay } from "./DayContext";
 
 
 export default function TaskTitle() {
-    const [day, setday] = useDay()
+    const {day, setday} = useDay()
 
     const last = () => setday(dayjs(day).add(-1, "day"))
     const next = () => setday(dayjs(day).add(1, "day"))

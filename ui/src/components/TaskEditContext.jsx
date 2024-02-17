@@ -21,11 +21,11 @@ const useTaskEdit = () => {
 
 const TaskEditProvider = (props) => {
     const [edit, setEdit] = useState(0)
-    const [day] = useDay()
+    const {month} = useDay()
 
     useEffect(() => {
         setEdit(0)
-    }, [dayjs(day).format("YYYY-MM")])
+    }, [month])
 
     return (
         <TaskEditContext.Provider value={[edit, setEdit]} {...props}>

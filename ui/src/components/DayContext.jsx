@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 
 const DayContext = createContext();
@@ -15,13 +15,18 @@ const useDay = () => {
 
 const DayProvider = props => {
     const [day, setDay] = useState(dayjs().format("YYYY-MM-DD"))
+    const [month, setMonth] = useState(dayjs(day).format("YYYY-MM"))
+
+    useEffect(() => {
+        setMonth(dayjs(day).format("YYYY-MM"))
+    }, [day])
 
     const setday = (day) => {
         setDay(dayjs(day).format("YYYY-MM-DD"))
     }
 
     return (
-        <DayContext.Provider value={[ day, setday]} {...props}>
+        <DayContext.Provider value={{ day, setday, month}} {...props}>
             {props.children}
         </DayContext.Provider>
     )

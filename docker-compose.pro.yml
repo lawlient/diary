@@ -8,7 +8,7 @@ services:
           context: .
           args:
             BASEPATH: /yraid/ # base path for ui and server, cannot change on the fly cause of embedding ui
-        #restart: unless-stopped
+        restart: unless-stopped
         working_dir: "/app/"
         environment:
             GIN_MODE: release
@@ -19,3 +19,10 @@ services:
             - 1229:1229
         
         tty: true
+        networks:
+          - pronet
+
+networks:
+  pronet:
+    name: pro_net
+    external: true

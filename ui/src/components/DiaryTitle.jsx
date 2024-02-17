@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useDay } from "./DayContext";
 
 export default function DiaryTitle() {
-    const [day] = useDay()
+    const {day} = useDay()
 
     return (
         <div className="w-full flex justify-center items-center py-3" > 

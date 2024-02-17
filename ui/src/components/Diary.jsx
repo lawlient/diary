@@ -8,7 +8,7 @@ import { useDay } from "./DayContext";
 
 
 export default function Diary() {
-    const [day] = useDay()
+    const {day} = useDay()
 
     const [diary, setDiary] = useState({
         "day": dayjs(day).format("YYYY-MM-DD"),
@@ -24,7 +24,6 @@ export default function Diary() {
                 if (res.data.data.length == 1) {
                     setDiary(res.data.data[0])
                 } else {
-                    console.log(res.data.data)
                     setDiary({
                         "day": dayjs(day).format("YYYY-MM-DD"),
                         "content": "",

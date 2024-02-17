@@ -2,18 +2,20 @@ import { useEffect, useState } from "react"
 import { edittask, gettasklist } from "../api/api"
 import { useResponsiveWidth } from "../hooks/WindowSize"
 import NewTaskButton from "./NewTaskButton"
-import { HourglassBottom, HourglassTop, More, MoreHoriz } from "@mui/icons-material"
+import { HourglassBottom, HourglassTop, More, MoreHoriz, MoreVert } from "@mui/icons-material"
 import { useDay } from "./DayContext"
 import { useTaskEdit } from "./TaskEditContext"
 import TaskEditorDialog from "./TaskEditorDialog"
 import dayjs from "dayjs"
 
 function TaskContent({t}) {
+    const todo = (t.status === "TODO")
     const done = (t.status === "DONE")
     const disc = (t.status === "DISCARD")
     return (
-        <div className={`w-1/3 flex items-center text test-black gap-2 ${disc ? "line-through": ""} sm:w-full`}>
-            {t.content}
+        <div className={`w-full flex items-center text gap-1 sm:w-1/3 ${disc ? "line-through text-gray-400": "text-black"} `}>
+            <span className="w-4 h-4 leading-4 mx-1 mr-2 mt-1 border rounded box-border text-lg cursor-pointer shadow-inner hover:opacity-80">{done && '✓'}</span>
+            <span className="">{t.content}</span>
         </div>
     )
 }
@@ -32,11 +34,11 @@ function TaskTime({t}) {
 
     return (
         <div className="flex gap-2">
-            <div className="flex justify-center items-center px-2 rounded bg-cyan-200 text-gray-500 text-xs gap-1">
+            <div className="flex justify-center items-center px-2 rounded bg-slate-200 text-gray-500 text-xs gap-1">
                 <HourglassTop fontSize="sx"/>
                 {tformat(t.est)}
             </div>
-            <div className="flex justify-center items-center px-2 rounded bg-cyan-200 text-gray-500 text-xs gap-1">
+            <div className="flex justify-center items-center px-2 rounded bg-slate-200 text-gray-500 text-xs gap-1">
                 <HourglassBottom fontSize="sx"/>
                 {tformat(t.act)}
             </div>
@@ -46,24 +48,25 @@ function TaskTime({t}) {
 
 
 function TaskOneline({t}) {
-    const disc = (t.status === "DISCARD")
     return (
-        <div className={`w-full flex justify-between items-center gap-8 ${disc ? "bg-slate-400" : ""}`}>
-            <div className="" >
-                <TaskContent t={t} />
-                <TaskTime t={t} />
-            </div>
-            <div className="">
-                <MoreHoriz />
-            </div>
+        <div className={`w-full flex flex-row justify-start items-center gap-2 relative`}>
+            <TaskContent t={t} />
+            <TaskTime t={t} />
+            <span className="absolute right-0.5">
+                <MoreHoriz fontSize="sx"/>
+            </span>
         </div>
     )
 }
 
 function TaskTwoline({t}) {
     return (
-        <div className="">
-
+        <div className={`w-full flex flex-col justify-center items-start gap-2 relative`}>
+            <TaskContent t={t} />
+            <TaskTime t={t} />
+            <span className="absolute right-0.5">
+                <MoreVert fontSize="sx"/>
+            </span>
         </div>
     )
 }
@@ -85,7 +88,7 @@ function Task({t, setTask, setLayout}) {
 
 
 export default function TaskList() {
-    const [day] = useDay()
+    const {day} = useDay()
     const [edit] = useTaskEdit()
 
     const [tasks, setTasks] = useState([])

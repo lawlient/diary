@@ -7,8 +7,9 @@ import { counttask } from "../api/api"
 
 
 export default function Heatmap() {
-    const [day, setday] = useDay()
+    const {day, month, setday} = useDay()
     const [edit] = useTaskEdit()
+    const [colstart, setColstart] = useState("col-start-" + dayjs(day).set('date', 1).day())
 
     const initCount = () => {
         let count = []
@@ -36,14 +37,15 @@ export default function Heatmap() {
             }
             setData(tmp)
         })
-        console.log(data)
-    }, [day, edit])
+    }, [month, edit])
 
+    useEffect(() => {
+        setColstart("col-start-" + dayjs(day).set('date', 1).day())
+    }, [day])
 
     return (
         <div className="flex flex-col items-center gap-2 w-full">
-
-            <div className="grid grid-cols-7 gap-0.5 ">
+            <div className={`grid grid-cols-7 gap-0.5 before:${colstart}`}>
                 {
                     data.map((d, i) => {
                         const date = d.day
@@ -57,9 +59,8 @@ export default function Heatmap() {
 
                         return (
                             <div key={i} className={`${colorLevel} w-4 h-4 border rounded ${date === day ? "border border-black dark:border-gray-400" : ""}`}
-                                onClick={() => setday(d.day)}
-                            >
-
+                            onClick={() => setday(d.day)}>
+                                <span className=""></span>
                             </div>
                         )
                     })
