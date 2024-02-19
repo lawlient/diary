@@ -14,11 +14,11 @@ function TaskTime({task, setTask}) {
     return (
         <div className="w-full flex justify-between gap-2">
             <Input type="number" value={task.est} onChange={(e) => setTask({...task, est: parseInt(e.target.value)})}
-            startDecorator={<HourglassTop />}
-            endDecorator={"Minutes"} />
+            startDecorator={<HourglassTop fontSize="sx"/>}
+            endDecorator={<span className="text-xs text-gray-400">Minutes</span>} />
             <Input type="number" value={task.act} onChange={(e) => setTask({...task, act: parseInt(e.target.value)})}
-            startDecorator={<HourglassBottom />}
-            endDecorator={"Minutes"} />
+            startDecorator={<HourglassBottom fontSize="sx"/>}
+            endDecorator={<span className="text-xs text-gray-400">Minutes</span>} />
         </div>
     )
 }
@@ -85,7 +85,6 @@ export default function TaskEditorDialog({task, setTask, layout, setLayout, save
                 })
             }
         })
-        console.log(typeof(setday))
     }
 
     return (

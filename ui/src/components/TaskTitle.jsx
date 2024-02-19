@@ -10,13 +10,13 @@ export default function TaskTitle() {
     const next = () => setday(dayjs(day).add(1, "day"))
     return (
         <div className="w-full flex justify-center items-center gap-2 md:py-3">
-            <ArrowLeft onClick={last} className="text-gray-400 rounded-lg hover:bg-white hover:cursor-pointer"/>
+            <ArrowLeft onClick={last} className="text-gray-700 rounded-lg hover:bg-white hover:cursor-pointer"/>
 
             <div className="px-2">
-                <span className="text-lg text-gray-400">{dayjs(day).format("MMM DD YYYY")}</span>
+                <span className="text-lg text-gray-700">{dayjs(day).format("MMM DD YYYY")}</span>
             </div>
 
-            <ArrowRight className="text-gray-400 rounded-lg hover:bg-white hover:cursor-pointer" onClick={next}/>
+            <ArrowRight className="text-gray-700 rounded-lg hover:bg-white hover:cursor-pointer" onClick={next}/>
         </div>
     )
 }

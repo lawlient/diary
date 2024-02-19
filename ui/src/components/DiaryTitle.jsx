@@ -6,7 +6,7 @@ export default function DiaryTitle() {
 
     return (
         <div className="w-full flex justify-center items-center py-3" > 
-            <span className="text-lg text-gray-400">
+            <span className="text-lg text-gray-700">
                 {dayjs(day).format("dddd")}
             </span>
         </div>

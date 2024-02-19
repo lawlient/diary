@@ -96,12 +96,12 @@ export default function Editor(props) {
     return (
         <>
         <Modal open={!!layout} onClose={onClose}>
-            <ModalDialog className="flex flex-col items-center px-2 min-w-80 w-1/2">
+            <ModalDialog className={`flex w-full flex-col items-center px-2 min-w-80 sm:${layout === 'center' && 'w-1/2'} ${layout !== 'center' && 'h-full'} `}>
                 { layout === 'center' &&  <DialogTitle >{title}</DialogTitle>}
                 { layout === 'center' &&  <ModalClose />}
 
-                <div className="w-full border rounded-lg border-gray-300 px-2 gap">
-                    <textarea className="w-full h-full min-h-[300px] my-4 text-base resize-none overflow-x-hidden overflow-y-auto bg-transparent outline-none"
+                <div className="w-full h-full flex flex-col border rounded-lg border-gray-300 px-2 gap">
+                    <textarea className="w-full h-full min-h-96 my-4 text-base resize-none overflow-x-hidden overflow-y-auto bg-transparent outline-none"
                         value={data} onChange={(e)=>setData(e.target.value)} />
                     <div className="flex justify-between items-center w-full border-t h-8 py-4">
                         <div className="flex">
@@ -110,7 +110,7 @@ export default function Editor(props) {
                             </IconButton>
                         </div>
                         <div className="flex justify-end">
-                            <button className="px-2 border rounded-xl border-green-300 bg-green-300 hover:bg-green-400" onClick={onSubmit} >save</button>
+                            <button className="px-2 border rounded-xl border-green-300 bg-green-400 hover:bg-green-500" onClick={onSubmit} >save</button>
                         </div>
                     </div>
                 </div>

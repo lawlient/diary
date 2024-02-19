@@ -16,6 +16,8 @@ services:
         working_dir: "/app/ui/"
         entrypoint: "/bin/sh entrypoint.sh"
         tty: true
+        networks:
+          - devnet
         depends_on:
             - server
 
@@ -27,10 +29,17 @@ services:
             BASEPATH: "/"
             GOPROXY: https://goproxy.cn
         ports:
-            - "10101:1625"
+            - "10102:1625"
         volumes:
             - "./:/app"
             - "/etc/localtime:/etc/localtime:ro"
         working_dir: "/app/server"
         entrypoint: "/bin/sh entrypoint.sh"
         tty: true
+        networks:
+          - devnet
+
+networks:
+  devnet:
+    name: dev_net
+    external: true

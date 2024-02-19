@@ -23,7 +23,7 @@ func (api *Api) RegisterAuth(e *gin.RouterGroup) {
 	u := e.Group("/user")
 	u.Use(middleware.JWT())
 	{
-		u.POST("/")
+		u.POST("/", api.GetUser)
 	}
 }
 
@@ -180,6 +180,7 @@ func (api *Api) GetUser(c *gin.Context) {
 		return
 	}
 	user := list[0]
+	user.Password = "" /* 密码不返回 */
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"msg":     "OK",

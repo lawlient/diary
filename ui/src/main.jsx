@@ -20,6 +20,7 @@ const init_user = async () => {
         redirect(import.meta.env.BASE_URL + "signin")
         return null
     }
+    console.log("Welcome to yraid")
     await getuser(username).then(res => {
         console.log(res.data)
     })
