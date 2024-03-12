@@ -2,25 +2,25 @@
 
 version: '3'
 services:
-    yraid:
-        container_name: yraid
-        build: 
-          context: .
-          args:
-            BASEPATH: /yraid/ # base path for ui and server, cannot change on the fly cause of embedding ui
-        restart: unless-stopped
-        working_dir: "/app/"
-        environment:
-            GIN_MODE: release
-        entrypoint: "/app/yraid --port=1229"
-        volumes:
-            - "./.data:/app/.data"
-        ports:
-            - 1229:1229
-        
-        tty: true
-        networks:
-          - pronet
+  yraid:
+    container_name: yraid
+    build: 
+      context: .
+      args:
+        BASEPATH: /yraid/ # base path for ui and server, cannot change on the fly cause of embedding ui
+    restart: unless-stopped
+    working_dir: "/app/"
+    environment:
+        GIN_MODE: release
+    entrypoint: "/app/yraid --port=1229"
+    volumes:
+        - "/var/lib/yraid/.data:/app/.data"
+    ports:
+        - 1229:1229
+    
+    tty: true
+    networks:
+      - pronet
 
 networks:
   pronet:

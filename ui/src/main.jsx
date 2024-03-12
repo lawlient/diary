@@ -5,13 +5,14 @@ import "./index.css"
 import "./less/code-highlight.less"
 import App from './App.jsx'
 import Root from './Root.jsx'
+import { getuser } from './api/api.js';
 import NotFound from './pages/NotFound.jsx'
 import Signin from './pages/Signin.jsx'
 import Signup from './pages/Signup.jsx'
 import Daily from './pages/Daily.jsx';
 import Monthly from './pages/Monthly.jsx';
 import Yearly from './pages/Yearly.jsx';
-import { getuser } from './api/api.js';
+import Setting from './pages/Setting.jsx';
 
 // loader, must return something
 const init_user = async () => {
@@ -23,6 +24,7 @@ const init_user = async () => {
     console.log("Welcome to yraid")
     await getuser(username).then(res => {
         console.log(res.data)
+        localStorage.setItem("__avatar__", res.data.avatar)
     })
     return null
 }
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
                     {
                         path: "yearly",
                         element: <Yearly />,
+                    },
+                    {
+                        path: "setting",
+                        element: <Setting />,
                     },
                 ]
             },

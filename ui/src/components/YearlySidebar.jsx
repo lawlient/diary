@@ -1,11 +1,9 @@
-import { Add, Remove } from "@mui/icons-material"
-import { IconButton, Typography } from "@mui/joy"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 
 
 function YearNav({day, setday}) {
-    const [year, setYear] = useState([])
+    const [list, setList] = useState([])
 
     useEffect(() => {
 
@@ -13,7 +11,7 @@ function YearNav({day, setday}) {
 
     return (
         <div className="w-full flex flex-col gap-2 items-center">
-            {year.map(y => (
+            {list.map(y => (
                 <div key={y} className="w-1/2 bg-slate-100 text-center rounded-lg"
                     onClick={() => setday(dayjs(day).set('year', y).format("YYYY"))}
                 >

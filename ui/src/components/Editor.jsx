@@ -96,7 +96,7 @@ export default function Editor(props) {
     return (
         <>
         <Modal open={!!layout} onClose={onClose}>
-            <ModalDialog className={`flex w-full flex-col items-center px-2 min-w-80 sm:${layout === 'center' && 'w-1/2'} ${layout !== 'center' && 'h-full'} `}>
+            <ModalDialog className={`flex w-full flex-col items-center px-2 min-w-80 sm:${layout === 'center' && "w-1/2"} ${layout !== 'center' && 'h-full'} `}>
                 { layout === 'center' &&  <DialogTitle >{title}</DialogTitle>}
                 { layout === 'center' &&  <ModalClose />}
 

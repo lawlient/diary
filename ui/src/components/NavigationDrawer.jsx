@@ -17,7 +17,7 @@ export default function NavigationDrawer() {
 
 
     return (
-        <div >
+        <>
             <IconButton onClick={() => setOpen(true)} >
                 <Menu />
             </IconButton>
@@ -27,6 +27,6 @@ export default function NavigationDrawer() {
                 </div>
             </Drawer>
             
-        </div>
+        </>
     )
 }

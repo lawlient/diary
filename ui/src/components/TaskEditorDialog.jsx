@@ -42,8 +42,9 @@ function TaskStatus({task, setTask}) {
 
 function TaskComments({task, setTask}) {
     return (
-        <Textarea className="w-full" value={task.comments}  placeholder="comments"
-        onChange={(e) => setTask({...task, comments: e.target.value})} minRows={10} />
+        <textarea className="w-full h-full min-h-80 p-2 text-base resize-none overflow-x-hidden overflow-y-auto bg-transparent rounded border border-gray-300"
+        value={task.comments}  placeholder="comments"
+        onChange={(e) => setTask({...task, comments: e.target.value})} />
     )
 }
 

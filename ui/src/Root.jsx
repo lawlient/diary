@@ -5,7 +5,7 @@ export default function Root() {
 
     return (
         <div className='w-full min-h-full bg-zinc-100 dark:bg-zinc-800'>
-            <div className="w-full max-w-6xl mx-auto flex flex-row justify-center items-start px-2">
+            <div className="w-full max-w-6xl mx-auto flex flex-row justify-center items-start px-4">
                 <div className="hidden sm:block sticky top-0 left-0 w-56">
                     <Navigation />
                 </div>

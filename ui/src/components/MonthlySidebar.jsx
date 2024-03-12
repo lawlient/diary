@@ -1,5 +1,4 @@
 import { Add, Remove } from "@mui/icons-material"
-import { IconButton, Typography } from "@mui/joy"
 import dayjs from "dayjs"
 
 function YearNav({day, setday}) {
@@ -18,10 +17,14 @@ function YearNav({day, setday}) {
 function MonthNav({day, setday}) {
     const mon = [0,1,2,3,4,5,6,7,8,9,10,11]
 
+    const selected = (m) => {
+        return m === dayjs(day).month()
+    }
+
     return (
         <div className="w-full flex flex-col gap-2 items-center">
             {mon.map(m => (
-                <div key={m} className="w-1/2 h-9 hover:bg-cyan-300 flex justify-center items-center rounded-lg hover:cursor-pointer"
+                <div key={m} className={`w-1/2 h-9 flex justify-center items-center rounded-lg ${selected(m) && "bg-cyan-200"} hover:cursor-pointer hover:bg-cyan-300 `}
                     onClick={() => setday(dayjs(day).set('month', m).format("YYYY-MM"))}
                 >
                     {dayjs().set('month',m).format("MMM")}
