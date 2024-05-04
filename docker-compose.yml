@@ -5,7 +5,7 @@ services:
     ui:
         container_name: "yraid_ui"
         build: ./ui/
-        restart: unless-stopped
+        #restart: unless-stopped
         environment:
             TZ: "Asia/Shanghai"
         ports:
@@ -24,7 +24,7 @@ services:
     server:
         container_name: "yraid_server"
         build: ./server/
-        restart: unless-stopped
+        #restart: unless-stopped
         environment:
             BASEPATH: "/"
             GOPROXY: https://goproxy.cn
